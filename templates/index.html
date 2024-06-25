@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promptly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url(https://db.onlinewebfonts.com/c/2c6559d94a7fa38ce73eaa827ca22ce2?family=Lust+Script+Display);
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333333;
+            color: #EAEAEA;
+        }
+
+        header {
+            background-color: #333333;
+            color: #EAEAEA;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #EAEAEA;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-profile i {
+            margin-right: 5px;  /* Add some space between the icon and the username */
+            color: white;      /* Change the color of the icon */
+            font-size: 24px;     /* Adjust the size of the icon */
+        }
+
+
+        .user-profile span {
+            color: #EAEAEA;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+            flex-direction: column;
+        }
+
+        .center-container h1 {
+            text-align: center;
+<!--            margin-bottom: 0px;-->
+            color: #EAEAEA;
+        }
+
+        .center-container h3 {
+            text-align: center;
+            margin-top: 10px;
+            color: #AFAFAF;
+        }
+
+        form {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 20px;
+            width: 75%; /* Adjust the width here */
+            margin: 0 auto; /* Center the form horizontally */
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]{
+            width: 97.5%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #AFAFAF;
+            border-radius: 10px;
+        }
+
+<!--        input[type="submit"] {-->
+<!--            border: none;-->
+<!--            border-radius: 10px;-->
+<!--            background-color: #EAEAEA;-->
+<!--            color: #222222;-->
+<!--            cursor: pointer;-->
+<!--            transition: background-color 0.3s;-->
+<!--            margin-left: 25%;-->
+<!--            width: 50%;-->
+<!--            position: relative; /* Set position to relative */-->
+<!--            top: 10px; /* Move the button down by 10 pixels */-->
+<!--        }-->
+
+        #input_sub{
+            width: 97.5%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #EAEAEA;
+            color: #222222;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 25%;
+            width: 50%;
+            position: relative; /* Set position to relative */
+            top: 10px; /* Move the button down by 10 pixels */
+        }
+
+        #input_sub:hover {
+            background-color: #CCCCCC;
+        }
+
+<!--        input[type="submit"]:hover {-->
+<!--            background-color: #CCCCCC;-->
+<!--        }-->
+
+        input[type="text"]:hover,
+        input[type="text"]:focus {
+            border: 1px solid #EFEFEF;
+            border-radius: 10px;
+        }
+
+        .chatgpt-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            outline: none;
+            background-color: #303030;
+            color: #F5F5F5;
+            transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .chatgpt-input:focus {
+            border-color: #007bff;
+            background-color: #2c2c2c;
+        }
+
+        .chatgpt-input::placeholder {
+            color: #aaa;
+            font-style: italic;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .chatgpt-input:focus::placeholder,
+        .chatgpt-input:not(:placeholder-shown)::placeholder {
+            color: transparent;
+        }
+
+        .form-container {
+            position: relative;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
+            margin-top: 20px; /* Adjusted margin */
+            color: #EAEAEA;
+            position: absolute;
+            bottom: -50px; /* This will position the loading below the form */
+            left: 50%; /* Center the loading horizontally */
+            transform: translateX(-50%); /* Center the loading horizontally */
+        }
+
+         nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 5px;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #EAEAEA;
+            text-decoration: none;
+<!--            padding: 5px 10px;-->
+<!--            border-radius: 5px;-->
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #FFFFFF;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+<!--            margin-bottom: 10px;-->
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .fade-in-text {
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+            display: inline-block;
+        }
+
+        header ul li i {
+            margin-right: 10px;  /* Add some space between the icon and the text */
+            color: white;      /* Change the color of the icon */
+            font-size: 20px;     /* Adjust the size of the icon */
+        }
+
+       .container {
+            border: 0.5px solid #ccc; /* Grey border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 20px; /* Padding inside the container */
+            margin: 40px auto; /* Center the container horizontally */
+            display: flex; /* Set display to flex */
+            flex-direction: column; /* Arrange items vertically */
+            max-width: 800px; /* Set the maximum width */
+            width: 70%; /* Set the width */
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Add darker drop shadow */
+       }
+
+       .generated-container {
+            border: 0.5px solid #ccc; /* Grey border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding inside the container */
+            margin: 10px auto; /* Center the container horizontally */
+<!--            margin-left: 20px; /* Margin on the left side */-->
+            max-width: 200px; /* Set the maximum width */
+            min-height: 100px; /* Set the minimum height */
+            width: 85%;
+       }
+
+       .generated-text {
+            display: flex; /* Set display to flex */
+            flex-direction: column; /* Arrange items vertically */
+       }
+
+        .copy-button {
+            width: 43%;
+            cursor: pointer;
+            background-color: #EAEAEA;
+            color: #222222;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px auto 0; /* Center the button horizontally */
+            transition: background-color 0.3s;
+            display: block; /* Ensure the button takes up full width */
+        }
+
+        .copy-button:hover {
+            background-color: #CCCCCC;
+        }
+
+        .pr {
+            font-family: "Lust Script Display";
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <i class="fas fa-robot"></i> <!-- Font Awesome chatbot icon -->
+<!--                    <a href="/">Prompt Generator</a>-->
+                    <a href="/" class="pr">Promptly</a>
+<!--                    <span class="title">Promptly</span>-->
+                </li>
+            </ul>
+        </nav>
+       <div class="user-profile">
+<!--            <span>Username</span>-->
+            <i class="fas fa-user-circle"></i> <!-- Font Awesome profile icon -->
+
+       </div>
+    </header>
+        <main>
+    <div class="container">
+        <div class="center-container">
+            <h1>Enter Your Desired Question</h1>
+            <br>
+            <h3>Wait for the Optimized Version, Take the Generated Prompt to ChatGPT</h3>
+        </div>
+        <div class="center-container form-container"> <!-- Added form-container class here -->
+            <form action="/generate_prompt" method="post" onsubmit="showLoading()">
+                <input
+                    type="text"
+                    id="input_text"
+                    name="input_text"
+                    placeholder="Enter Your Question..."
+                    required
+                    class="chatgpt-input"
+                />
+                <button type="submit" id="input_sub">
+                    Generate Prompt
+                </button>
+            </form>
+        </div>
+
+
+        <div class="generated-container">
+        <div class="generated-text">
+            {% if input_text %}
+                <h4 class="fade-in-text">"<span>{{ input_text }}</span>"</h4>
+                <span class="fade-in-text">{{ generated_prompt }}</span>
+                <button class="copy-button" onclick="copyToClipboard('{{ generated_prompt }}', this)">Copy All</button>
+            {% endif %}
+        </div>
+        </div>
+        </div>
+    </main>
+    <script>
+        document.getElementById('input_sub').addEventListener('keyup', function() {
+            showLoading();
+        });
+
+        function showLoading() {
+            var button = document.getElementById('input_sub');
+            var buttonText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            button.setAttribute('disabled', 'disabled');
+
+            // You may want to reset the button text and remove the disabled attribute
+            // after some time or after the loading process is complete.
+            // Example:
+            // setTimeout(function() {
+            //     button.innerHTML = buttonText;
+            //     button.removeAttribute('disabled');
+            // }, 5000); // Replace 5000 with the desired duration in milliseconds
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function copyToClipboard(text, button) {
+            // Copy the modified text to the clipboard
+            navigator.clipboard.writeText(text)
+                .then(function() {
+                    // Change button text to indicate copying
+                    button.textContent = "Copied!";
+
+                    // Restore original button text after 3 seconds
+                    setTimeout(function () {
+                        button.textContent = "Copy All";
+                    }, 3000);
+                })
+                .catch(function(error) {
+                    console.error('Unable to copy text: ', error);
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const fadeInTexts = document.querySelectorAll('.fade-in-text');
+
+            fadeInTexts.forEach((text, index) => {
+                setTimeout(() => {
+                    text.style.opacity = '1';
+                }, index * 2000); // Delay each line by 1 second
+            });
+        });
+
+    </script>
+</body>
+</html>
